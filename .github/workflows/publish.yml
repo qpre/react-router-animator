@@ -10,8 +10,8 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: npm install
-      - run: npm run test -- --coverage --watchAll=false
+      - run: yarn
+      - run: yarn test -- --coverage --watchAll=false
 
       - name: Setup GIT
         run: |
