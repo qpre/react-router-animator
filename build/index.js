@@ -1,6 +1,6 @@
 /*!
  * 
- *   react-router-animator v0.0.2
+ *   react-router-animator v0.0.3
  *   https://github.com/qpre/react-router-animator
  *
  *   Copyright (c) Quentin Pré (https://github.com/qpre) and project contributors.
