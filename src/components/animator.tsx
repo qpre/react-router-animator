@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { Route, useHistory, useLocation } from 'react-router-dom';
 import { Transition, TransitionGroup } from 'react-transition-group';
 
@@ -9,9 +9,9 @@ const log_transition = ({ direction, from, to }) => {
 export const Animator = ({ animationRoutes = { default: undefined }, children, timeout_in = 1000, timeout_out = 1000, disabled = false }) => {
   const history = useHistory();
   const { pathname: new_pathname } = useLocation();
-  const [previous_pathname, set_previous_pathname] = useState();
+  const [previous_pathname, set_previous_pathname] = React.useState(null);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (previous_pathname !== new_pathname) {
       set_previous_pathname(new_pathname);
     }
@@ -44,7 +44,7 @@ export const Animator = ({ animationRoutes = { default: undefined }, children, t
     animateFunction({ node, appears });
   };
 
-  const animateOut = ({ location, node, appears }) => {
+  const animateOut = ({ location, node }) => {
     const { pathname } = location;
 
     // log_transition({
@@ -68,7 +68,7 @@ export const Animator = ({ animationRoutes = { default: undefined }, children, t
       return;
     }
 
-    animateFunction({ node, appears });
+    animateFunction({ node });
   };
 
   return (
@@ -81,11 +81,12 @@ export const Animator = ({ animationRoutes = { default: undefined }, children, t
           <div className="absolute inset-x-0">{children(location)}</div>
         ) : (
           <TransitionGroup component={null}>
+            {/* @ts-ignore */}
             <Transition
               key={key}
               appear={true}
-              onEnter={(node, appears) => animateIn({ location, node, appears })}
-              onExit={(node, appears) => animateOut({ location, node, appears })}
+              onEnter={(node: HTMLElement, isAppearing: boolean) => animateIn({ location, node, appears: isAppearing })}
+              onExit={(node: HTMLElement) => animateOut({ location, node })}
               timeout={{ enter: timeout_in, exit: timeout_out }}
             >
               <div className={`absolute inset-x-0`}>{children({ location })}</div>

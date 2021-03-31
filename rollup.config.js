@@ -2,6 +2,7 @@ import babel from '@rollup/plugin-babel';
 import resolve from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
 import commonjs from '@rollup/plugin-commonjs';
+import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 
 const extensions = ['.js', '.ts', '.tsx'];
 
@@ -33,7 +34,15 @@ export default {
       sourcemap: true
     }
   ],
+  external: ['react', 'react-dom', 'react-router-dom', 'react-transition-group'],
+  // globals: {
+  //   react: 'React',
+  //   'react-dom': 'ReactDOM',
+  //   'react-router-rom': 'ReactRouterDOM',
+  //   'react-transition-group': 'ReactTransitionGroup'
+  // },
   plugins: [
+    peerDepsExternal(),
     resolve({ extensions }),
     commonjs(),
     babel({
