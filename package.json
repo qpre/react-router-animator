@@ -20,7 +20,9 @@
     "build:cjs": "cross-env BABEL_ENV=cjs babel src --extensions \".ts,.tsx\" --out-dir 'lib/cjs' --source-maps ",
     "build:bundles": "cross-env BABEL_ENV=esmBundled rollup -c",
     "build": "npm-run-all -l clean -p build:esm build:cjs build:bundles declarations",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "npm run build",
+    "trypublish": "npm publish || true"
   },
   "repository": {
     "type": "git",
