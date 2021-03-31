@@ -1,18 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Route, useHistory, useLocation } from "react-router-dom";
-import { Transition, TransitionGroup } from "react-transition-group";
+import React, { useEffect, useState } from 'react';
+import { Route, useHistory, useLocation } from 'react-router-dom';
+import { Transition, TransitionGroup } from 'react-transition-group';
 
 const log_transition = ({ direction, from, to }) => {
-  console.log("ANIMATE", direction, "from ", from, "->", to);
+  console.log('ANIMATE', direction, 'from ', from, '->', to);
 };
 
-const Animator = ({
-  animationRoutes = {},
-  children,
-  timeout_in = 1000,
-  timeout_out = 1000,
-  disabled = false,
-}) => {
+export const Animator = ({ animationRoutes = { default: undefined }, children, timeout_in = 1000, timeout_out = 1000, disabled = false }) => {
   const history = useHistory();
   const { pathname: new_pathname } = useLocation();
   const [previous_pathname, set_previous_pathname] = useState();
@@ -90,17 +84,11 @@ const Animator = ({
             <Transition
               key={key}
               appear={true}
-              onEnter={(node, appears) =>
-                animateIn({ location, node, appears })
-              }
-              onExit={(node, appears) =>
-                animateOut({ location, node, appears })
-              }
+              onEnter={(node, appears) => animateIn({ location, node, appears })}
+              onExit={(node, appears) => animateOut({ location, node, appears })}
               timeout={{ enter: timeout_in, exit: timeout_out }}
             >
-              <div className={`absolute inset-x-0`}>
-                {children({ location })}
-              </div>
+              <div className={`absolute inset-x-0`}>{children({ location })}</div>
             </Transition>
           </TransitionGroup>
         );
