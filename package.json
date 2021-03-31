@@ -1,6 +1,6 @@
 {
   "name": "react-router-animator",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A library easing the process of adding transition animations on your react-router applications",
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
