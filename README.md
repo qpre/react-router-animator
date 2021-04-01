@@ -1,5 +1,7 @@
 # react-router-animator
 
+`react-router-animator` is a library that helps you in orchestrating animations in your (you can use whatever animation library for this such as [greensock](https://github.com/greensock/GSAP) or [animate.css](https://animate.style) for which you can use [animatecss-helpers](https://github.com/qpre/animatecss-helpers) to apply styles wiith control)
+
 ## Install
 
 `yarn add react-router-animator`
@@ -349,3 +351,7 @@ export const Routes = const Routes = () => (
   </Suspense>
 );
 ```
+
+## TODO
+
+- Remove tailwind references and use css instead
