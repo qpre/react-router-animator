@@ -14,6 +14,7 @@ export const Animator = ({
   disabled = false,
 }) => {
   const history = useHistory();
+  const transition_child_ref = React.useRef(null);
   const { pathname: new_pathname } = useLocation();
   const [previous_pathname, set_previous_pathname] = React.useState(null);
 
@@ -96,10 +97,12 @@ export const Animator = ({
                   onEnter={(node: HTMLElement, isAppearing: boolean) =>
                     animateIn({ location, node, appears: isAppearing })
                   }
+                  // https://github.com/reactjs/react-transition-group/issues/668
+                  nodeRef={transition_child_ref}
                   onExit={(node: HTMLElement) => animateOut({ location, node })}
                   timeout={{ enter: timeout_in, exit: timeout_out }}
                 >
-                  <div className={`absolute inset-0`} animator-default>
+                  <div ref={transition_child_ref} className={`absolute inset-0`} animator-default>
                     {children({ location })}
                   </div>
                 </Transition>
