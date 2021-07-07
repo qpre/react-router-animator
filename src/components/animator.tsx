@@ -6,7 +6,13 @@ const log_transition = ({ direction, from, to }) => {
   console.log('ANIMATE', direction, 'from ', from, '->', to);
 };
 
-export const Animator = ({ animationRoutes = { default: undefined }, children, timeout_in = 1000, timeout_out = 1000, disabled = false }) => {
+export const Animator = ({
+  animationRoutes = { default: undefined },
+  children,
+  timeout_in = 1000,
+  timeout_out = 1000,
+  disabled = false,
+}) => {
   const history = useHistory();
   const { pathname: new_pathname } = useLocation();
   const [previous_pathname, set_previous_pathname] = React.useState(null);
@@ -77,21 +83,29 @@ export const Animator = ({ animationRoutes = { default: undefined }, children, t
       render={({ location }) => {
         const { key } = location;
 
-        return disabled ? (
-          <div className="absolute inset-x-0">{children(location)}</div>
-        ) : (
-          <TransitionGroup component={null}>
-            {/* @ts-ignore */}
-            <Transition
-              key={key}
-              appear={true}
-              onEnter={(node: HTMLElement, isAppearing: boolean) => animateIn({ location, node, appears: isAppearing })}
-              onExit={(node: HTMLElement) => animateOut({ location, node })}
-              timeout={{ enter: timeout_in, exit: timeout_out }}
-            >
-              <div className={`absolute inset-x-0`}>{children({ location })}</div>
-            </Transition>
-          </TransitionGroup>
+        return (
+          <div className="relative w-full h-full">
+            {disabled ? (
+              <div className="absolute inset-0">{children(location)}</div>
+            ) : (
+              <TransitionGroup component={null}>
+                {/* @ts-ignore */}
+                <Transition
+                  key={key}
+                  appear={true}
+                  onEnter={(node: HTMLElement, isAppearing: boolean) =>
+                    animateIn({ location, node, appears: isAppearing })
+                  }
+                  onExit={(node: HTMLElement) => animateOut({ location, node })}
+                  timeout={{ enter: timeout_in, exit: timeout_out }}
+                >
+                  <div className={`absolute inset-0`} animator-default>
+                    {children({ location })}
+                  </div>
+                </Transition>
+              </TransitionGroup>
+            )}
+          </div>
         );
       }}
     />
