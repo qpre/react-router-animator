@@ -94,12 +94,12 @@ export const Animator = ({
                 <Transition
                   key={key}
                   appear={true}
-                  onEnter={(node: HTMLElement, isAppearing: boolean) =>
-                    animateIn({ location, node, appears: isAppearing })
+                  onEnter={(isAppearing: boolean) =>
+                    animateIn({ location, node: transition_child_ref.current, appears: isAppearing })
                   }
                   // https://github.com/reactjs/react-transition-group/issues/668
                   nodeRef={transition_child_ref}
-                  onExit={(node: HTMLElement) => animateOut({ location, node })}
+                  onExit={() => animateOut({ location, node: transition_child_ref.current })}
                   timeout={{ enter: timeout_in, exit: timeout_out }}
                 >
                   <div ref={transition_child_ref} className={`absolute inset-0`} data-animator-default>
