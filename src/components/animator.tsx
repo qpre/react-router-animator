@@ -99,7 +99,7 @@ export const Animator = ({
                   onExit={(node: HTMLElement) => animateOut({ location, node })}
                   timeout={{ enter: timeout_in, exit: timeout_out }}
                 >
-                  <div className={`absolute inset-0`} animator-default>
+                  <div className={`absolute inset-0`} data-animator-default>
                     {children({ location })}
                   </div>
                 </Transition>
