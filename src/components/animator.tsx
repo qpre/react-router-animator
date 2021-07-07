@@ -14,7 +14,7 @@ export const Animator = ({
   disabled = false,
 }) => {
   const history = useHistory();
-  const transition_child_ref = React.useRef(null);
+  // const transition_child_ref = React.useRef(null);
   const { pathname: new_pathname } = useLocation();
   const [previous_pathname, set_previous_pathname] = React.useState(null);
 
@@ -94,15 +94,15 @@ export const Animator = ({
                 <Transition
                   key={key}
                   appear={true}
-                  onEnter={(isAppearing: boolean) =>
-                    animateIn({ location, node: transition_child_ref.current, appears: isAppearing })
+                  onEnter={(node: HTMLElement, isAppearing: boolean) =>
+                    animateIn({ location, node, appears: isAppearing })
                   }
-                  // https://github.com/reactjs/react-transition-group/issues/668
-                  nodeRef={transition_child_ref}
-                  onExit={() => animateOut({ location, node: transition_child_ref.current })}
+                  // // https://github.com/reactjs/react-transition-group/issues/668
+                  // nodeRef={transition_child_ref}
+                  onExit={(node) => animateOut({ location, node })}
                   timeout={{ enter: timeout_in, exit: timeout_out }}
                 >
-                  <div ref={transition_child_ref} className={`absolute inset-0`} data-animator-default>
+                  <div className={`absolute inset-0`} data-animator-default>
                     {children({ location })}
                   </div>
                 </Transition>
