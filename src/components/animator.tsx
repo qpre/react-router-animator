@@ -60,6 +60,10 @@ export const Animator = ({
     //   to: history?.location?.pathname,
     // });
 
+    // disable interactions when animating out (avoids clicks that would go through during the transition)
+    node.style.pointerEvents = 'none';
+    node.style.userSelect = 'none'
+
     const animateFunction = (() => {
       const toPathname = history?.location?.pathname;
       const animator =
